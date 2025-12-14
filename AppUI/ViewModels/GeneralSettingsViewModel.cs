@@ -443,6 +443,17 @@ namespace AppUI.ViewModels
                         // Try to detect 1998 game or a "converted" game from the old 7H game converter
                         string registry_path = $"{RegistryHelper.GetKeyPath(FF7RegKey.SquareSoftKeyPath)}\\Final Fantasy VII";
                         ff7 = (string)Registry.GetValue(registry_path, "AppPath", null);
+                        
+                        // Fallback: Check for ff7.exe in the Steam path if we found it earlier but prioritized Steam exe
+                        if (string.IsNullOrWhiteSpace(ff7) && !string.IsNullOrWhiteSpace(GameConverter.GetInstallLocation(FF7Version.Steam)))
+                        {
+                            string steamDir = GameConverter.GetInstallLocation(FF7Version.Steam);
+                            if (File.Exists(Path.Combine(steamDir, "ff7.exe")))
+                            {
+                                ff7 = steamDir; // Use the Steam dir, but we will target ff7.exe
+                            }
+                        }
+
                         Sys.Settings.FF7InstalledVersion = !string.IsNullOrWhiteSpace(ff7) ? FF7Version.Original98 : FF7Version.Unknown;
 
                         if (!Directory.Exists(ff7))
@@ -519,8 +530,28 @@ namespace AppUI.ViewModels
                         }
                     }
                     else
+                    {
                         // No previously converted edition detected, looks like a genuine 1998 edition
                         Sys.Settings.FF7InstalledVersion = FF7Version.Original98;
+                    }
+                }
+            }
+
+            if (Sys.Settings.FF7InstalledVersion != FF7Version.Unknown && !string.IsNullOrWhiteSpace(ff7))
+            {
+                // Prefer ff7.exe (1.02/1998) over ff7_en.exe (Steam) to avoid DRM
+                if (File.Exists(Path.Combine(ff7, "ff7.exe")))
+                {
+                    settings.FF7Exe = Path.Combine(ff7, "ff7.exe");
+                }
+                else
+                {
+                    settings.FF7Exe = Path.Combine(ff7, "ff7_en.exe");
+                }
+                
+                if (!File.Exists(settings.FF7Exe))
+                {
+                    settings.FF7Exe = Path.Combine(ff7, "FF7.exe");
                 }
             }
         }
