@@ -853,6 +853,26 @@ namespace AppUI.ViewModels
         {
             downloadInfo.HasStarted = true;
 
+            if (downloadInfo.Category == DownloadCategory.Mod || downloadInfo.Category == DownloadCategory.ModPatch)
+            {
+                string link = links.FirstOrDefault();
+                string savePath = Path.GetDirectoryName(downloadInfo.SaveFilePath);
+
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    string msg = $"Manual Download Required.\n\nLink: {link}\n\nPlease download this file and place it in:\n{savePath}\n\nOpen link now?";
+                    if (MessageDialogWindow.Show(msg, "Manual Download", MessageBoxButton.YesNo, MessageBoxImage.Information).Result == MessageBoxResult.Yes)
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo(link) { UseShellExecute = true };
+                        Process.Start(startInfo);
+                    }
+                });
+
+                RemoveFromDownloadList(downloadInfo);
+                downloadInfo.OnCancel?.Invoke();
+                return;
+            }
+
             Action onError = () =>
             {
                 RemoveFromDownloadList(downloadInfo);
