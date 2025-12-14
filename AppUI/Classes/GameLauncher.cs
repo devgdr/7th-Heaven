@@ -855,6 +855,7 @@ namespace AppUI.Classes
                 if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
                 {
                     // Start game via Steam
+                    /*
                     ProcessStartInfo startInfo = new ProcessStartInfo(GameConverter.GetSteamExePath())
                     {
                         WorkingDirectory = GameConverter.GetSteamPath(),
@@ -869,6 +870,14 @@ namespace AppUI.Classes
                     {
                         ff7Proc = game;
                     }
+                    */
+                     // Start game directly
+                    ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
+                    {
+                        WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
+                        UseShellExecute = true,
+                    };
+                    ff7Proc = Process.Start(startInfo);
                 }
                 else
                 {
