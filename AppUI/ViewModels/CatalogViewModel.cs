@@ -873,7 +873,13 @@ namespace AppUI.ViewModels
 
                 App.Current.Dispatcher.Invoke(() =>
                 {
-                    string msg = $"Manual Download Required.\n\nLink: {displayLink}\nPlease download this file and place it in:\n{savePath}\n\nOpen link now?";
+                    try
+                    {
+                        System.Windows.Clipboard.SetText(displayLink);
+                    }
+                    catch { } // ignore clipboard errors
+
+                    string msg = $"Link copied to clipboard!\n\nLink: {displayLink}\n\nPlease download this file manually.\nOnce downloaded, go to 'My Mods' tab and click 'Import' to install it.\n\nOpen link in browser?";
                     if (MessageDialogWindow.Show(msg, "Manual Download", MessageBoxButton.YesNo, MessageBoxImage.Information).Result == MessageBoxResult.Yes)
                     {
                         ProcessStartInfo startInfo = new ProcessStartInfo(displayLink) { UseShellExecute = true };
