@@ -855,19 +855,19 @@ namespace AppUI.ViewModels
 
             if (downloadInfo.Category == DownloadCategory.Mod || downloadInfo.Category == DownloadCategory.ModPatch)
             {
-                string link = links.FirstOrDefault();
+                string manualLink = links.FirstOrDefault();
                 string savePath = Path.GetDirectoryName(downloadInfo.SaveFilePath);
-                string displayLink = link;
+                string displayLink = manualLink;
 
-                if (LocationUtil.TryParse(link, out LocationType type, out string location))
+                if (LocationUtil.TryParse(manualLink, out LocationType manualType, out string manualLocation))
                 {
-                    if (type == LocationType.GDrive)
+                    if (manualType == LocationType.GDrive)
                     {
-                        displayLink = $"https://docs.google.com/uc?id={location}&export=download";
+                        displayLink = $"https://docs.google.com/uc?id={manualLocation}&export=download";
                     }
-                    else if (type == LocationType.Url || type == LocationType.ExternalUrl)
+                    else if (manualType == LocationType.Url || manualType == LocationType.ExternalUrl)
                     {
-                        displayLink = location;
+                        displayLink = manualLocation;
                     }
                 }
 
