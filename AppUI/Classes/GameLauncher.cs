@@ -871,12 +871,13 @@ namespace AppUI.Classes
                         ff7Proc = game;
                     }
                     */
-                     // Start game directly
+                    // Start game directly
                     ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
                     {
                         WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
-                        UseShellExecute = true,
+                        UseShellExecute = false,
                     };
+                    startInfo.EnvironmentVariables["WINEDLLOVERRIDES"] = "dinput,ddraw=n,b";
                     ff7Proc = Process.Start(startInfo);
                 }
                 else
@@ -885,8 +886,9 @@ namespace AppUI.Classes
                     ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
                     {
                         WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
-                        UseShellExecute = true,
+                        UseShellExecute = false,
                     };
+                    startInfo.EnvironmentVariables["WINEDLLOVERRIDES"] = "dinput,ddraw=n,b";
                     ff7Proc = Process.Start(startInfo);
                 }
 
