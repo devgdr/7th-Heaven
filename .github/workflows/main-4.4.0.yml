@@ -106,11 +106,4 @@ jobs:
         name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
         body: |
 
-    - name: Send alerts
-      if: env._IS_GITHUB_RELEASE == 'true' && success()
-      env:
-        _MAP_7TH_INTERNAL: "${{ secrets._7TH_INTERNAL }}"
-        _MAP_7TH_QHIMM: "${{ secrets._7TH_QHIMM }}"
-        _MAP_7TH_TSUNAMODS: "${{ secrets._7TH_TSUNAMODS }}"
-      run: ".github/workflows/alert.ps1"
-      shell: pwsh
+
