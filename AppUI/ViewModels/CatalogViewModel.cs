@@ -855,15 +855,28 @@ namespace AppUI.ViewModels
 
             if (downloadInfo.Category == DownloadCategory.Mod || downloadInfo.Category == DownloadCategory.ModPatch)
             {
-                string manualLink = links.FirstOrDefault();
+                string link = links.FirstOrDefault();
                 string savePath = Path.GetDirectoryName(downloadInfo.SaveFilePath);
+                string displayLink = link;
+
+                if (LocationUtil.TryParse(link, out LocationType type, out string location))
+                {
+                    if (type == LocationType.GDrive)
+                    {
+                        displayLink = $"https://docs.google.com/uc?id={location}&export=download";
+                    }
+                    else if (type == LocationType.Url || type == LocationType.ExternalUrl)
+                    {
+                        displayLink = location;
+                    }
+                }
 
                 App.Current.Dispatcher.Invoke(() =>
                 {
-                    string msg = $"Manual Download Required.\n\nLink: {manualLink}\n\nPlease download this file and place it in:\n{savePath}\n\nOpen link now?";
+                    string msg = $"Manual Download Required.\n\nLink: {displayLink}\nPlease download this file and place it in:\n{savePath}\n\nOpen link now?";
                     if (MessageDialogWindow.Show(msg, "Manual Download", MessageBoxButton.YesNo, MessageBoxImage.Information).Result == MessageBoxResult.Yes)
                     {
-                        ProcessStartInfo startInfo = new ProcessStartInfo(manualLink) { UseShellExecute = true };
+                        ProcessStartInfo startInfo = new ProcessStartInfo(displayLink) { UseShellExecute = true };
                         Process.Start(startInfo);
                     }
                 });
