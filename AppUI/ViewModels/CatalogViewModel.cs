@@ -855,15 +855,15 @@ namespace AppUI.ViewModels
 
             if (downloadInfo.Category == DownloadCategory.Mod || downloadInfo.Category == DownloadCategory.ModPatch)
             {
-                string link = links.FirstOrDefault();
+                string manualLink = links.FirstOrDefault();
                 string savePath = Path.GetDirectoryName(downloadInfo.SaveFilePath);
 
                 App.Current.Dispatcher.Invoke(() =>
                 {
-                    string msg = $"Manual Download Required.\n\nLink: {link}\n\nPlease download this file and place it in:\n{savePath}\n\nOpen link now?";
+                    string msg = $"Manual Download Required.\n\nLink: {manualLink}\n\nPlease download this file and place it in:\n{savePath}\n\nOpen link now?";
                     if (MessageDialogWindow.Show(msg, "Manual Download", MessageBoxButton.YesNo, MessageBoxImage.Information).Result == MessageBoxResult.Yes)
                     {
-                        ProcessStartInfo startInfo = new ProcessStartInfo(link) { UseShellExecute = true };
+                        ProcessStartInfo startInfo = new ProcessStartInfo(manualLink) { UseShellExecute = true };
                         Process.Start(startInfo);
                     }
                 });
