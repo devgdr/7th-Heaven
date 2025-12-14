@@ -184,6 +184,7 @@ namespace AppUI.Classes
             //
             // GAME SANITY CHECK - Make sure the user has at least run once the Steam game
             //
+            /*
             if (Sys.Settings.FF7InstalledVersion == FF7Version.Steam)
             {
                 Instance.RaiseProgressChanged($"{ResourceHelper.Get(StringKey.CheckingFF7SteamInstalledCorrectly)}...");
@@ -198,6 +199,7 @@ namespace AppUI.Classes
                     }
                 }
             }
+            */
 
             //
             // GAME CONVERTER - Make sure game is ready for mods

@@ -484,7 +484,7 @@ namespace AppUI.ViewModels
                     string ff7Launcher = Path.Combine(Path.GetDirectoryName(settings.FF7Exe), "FF7_Launcher.exe");
 
                     // Since both Steam and ReRelease share the same way to launch, prefer the Steam codepath
-                    if (File.Exists(ff7Launcher)) Sys.Settings.FF7InstalledVersion = FF7Version.Steam;
+                    Sys.Settings.FF7InstalledVersion = FF7Version.Steam;
                 }
                 else if(settings.FF7Exe.ToLower().EndsWith("ff7.exe"))
                 {
