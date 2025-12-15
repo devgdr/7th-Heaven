@@ -330,8 +330,14 @@ namespace AppUI.Classes
                 //
                 // Update Registry with new launch settings
                 //
-                Instance.SetRegistryValues();
+                //Instance.SetRegistryValues(); // Moved outside of check
             }
+
+            //
+            // Update Registry with new launch settings
+            // Required for 1.0.2 manual EXE to find data paths even on Steam installs
+            //
+            Instance.SetRegistryValues();
 
             //
             // GAME SHOULD BE FULLY 'CONVERTED' AND READY TO LAUNCH FOR MODS AT THIS POINT
