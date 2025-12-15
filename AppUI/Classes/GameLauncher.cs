@@ -1273,7 +1273,8 @@ namespace AppUI.Classes
                 }
             }
 
-            return "";
+            // Bypass for No-CD / Digital versions: Return a valid drive letter even if no disc found
+            return "C:\\";
         }
 
         /// <summary>
