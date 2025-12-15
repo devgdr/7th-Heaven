@@ -525,6 +525,8 @@ namespace Iros.Workshop
             AppVersion = new Version();
 
             FFNxConfig = new FFNxConfigManager();
+            FFNxConfig.OverrideInternalKeys();
+            FFNxConfig.Save();
 
             // Create the temp folder if does not exist
             if (!Directory.Exists(PathToTempFolder))
