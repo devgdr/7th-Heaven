@@ -872,23 +872,26 @@ namespace AppUI.Classes
                     }
                     */
                     // Start game directly
+                    Instance.RaiseProgressChanged("Linux/SteamDeck detected: Applying WINEDLLOVERRIDES...", NLog.LogLevel.Info);
                     ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
                     {
                         WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
                         UseShellExecute = false,
                     };
-                    startInfo.EnvironmentVariables["WINEDLLOVERRIDES"] = "dinput,ddraw=n,b";
+                    // Force Wine to use local dinput.dll (AppLoader) and ddraw.dll (FFNx)
+                    startInfo.EnvironmentVariables["WINEDLLOVERRIDES"] = "dinput=n,b;ddraw=n,b";
                     ff7Proc = Process.Start(startInfo);
                 }
                 else
                 {
                     // Start game directly
+                    Instance.RaiseProgressChanged("Linux/SteamDeck detected: Applying WINEDLLOVERRIDES...", NLog.LogLevel.Info);
                     ProcessStartInfo startInfo = new ProcessStartInfo(Sys.Settings.FF7Exe)
                     {
                         WorkingDirectory = Path.GetDirectoryName(Sys.Settings.FF7Exe),
                         UseShellExecute = false,
                     };
-                    startInfo.EnvironmentVariables["WINEDLLOVERRIDES"] = "dinput,ddraw=n,b";
+                    startInfo.EnvironmentVariables["WINEDLLOVERRIDES"] = "dinput=n,b;ddraw=n,b";
                     ff7Proc = Process.Start(startInfo);
                 }
 
