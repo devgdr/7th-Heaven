@@ -1344,10 +1344,16 @@ namespace AppUI.Classes
             SetValueIfChanged(virtualStorePath, "MoviePath", pathToMovies);
 
             // setting the drive letter may not happen if auto update disc path is not set
-            if (Sys.Settings.GameLaunchSettings.AutoUpdateDiscPath && !string.IsNullOrWhiteSpace(DriveLetter))
+            string driveToUse = DriveLetter;
+            if (string.IsNullOrWhiteSpace(driveToUse))
             {
-                SetValueIfChanged(ff7KeyPath, "DataDrive", DriveLetter);
-                SetValueIfChanged(virtualStorePath, "DataDrive", DriveLetter);
+                driveToUse = "C:\\"; // Fallback for No-CD/Steam installs
+            }
+
+            if (Sys.Settings.GameLaunchSettings.AutoUpdateDiscPath || !string.IsNullOrWhiteSpace(driveToUse))
+            {
+                SetValueIfChanged(ff7KeyPath, "DataDrive", driveToUse);
+                SetValueIfChanged(virtualStorePath, "DataDrive", driveToUse);
             }
 
             SetValueIfChanged(ff7KeyPath, "DiskNo", 0, RegistryValueKind.DWord);
