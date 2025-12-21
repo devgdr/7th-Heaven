@@ -1311,6 +1311,7 @@ namespace AppUI.Classes
         /// </summary>
         public void SetRegistryValues()
         {
+            /*
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ApplyingChangedValuesToRegistry));
 
             RegistryHelper.BeginTransaction();
@@ -1454,6 +1455,7 @@ namespace AppUI.Classes
             }
 
             RegistryHelper.CommitTransaction();
+            */
         }
 
         /// <summary>
