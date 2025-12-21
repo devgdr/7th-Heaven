@@ -254,8 +254,8 @@ namespace Iros.Workshop.ConfigSettings
             _toml["trace_all"] = debug;
             
             // Force No-CD behavior for manual installs/Linux
-            _toml["no_cd"] = true;
-            _toml["use_external_texture"] = true;
+            // _toml["no_cd"] = true;
+            // _toml["use_external_texture"] = true;
         }
 
         public void ResetTo7thHeavenDefaults()
