@@ -207,6 +207,7 @@ namespace AppUI.Classes
             FFNxDriverUpdater.CleanupUnnecessaryFiles();
             ReShadeUpdater.Cleanup();
 
+            /*
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingInstalledGameIsCompatible));
             if (converter.IsGamePirated())
             {
@@ -214,17 +215,21 @@ namespace AppUI.Classes
                 Logger.Info(FileUtils.ListAllFiles(converter.InstallPath));
                 return false;
             }
+            */
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.CreatingMissingRequiredDirectories));
             converter.CreateMissingDirectories();
 
+            /*
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingEnglishGameFilesExist));
             if (!converter.IsEnglishGameInstalled())
             {
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.ErrorOnlyEnglishLanguageSupported), NLog.LogLevel.Error);
                 return false;
             }
+            */
 
+            /*
             if (Sys.Settings.FF7InstalledVersion == FF7Version.Original98)
             {
                 Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingGameIsMaxInstall));
@@ -234,6 +239,7 @@ namespace AppUI.Classes
                     return false;
                 }
             }
+            */
 
             Instance.RaiseProgressChanged(ResourceHelper.Get(StringKey.VerifyingMusicFilesExist));
             converter.AllMusicFilesExist();
